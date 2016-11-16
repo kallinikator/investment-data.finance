@@ -1,0 +1,48 @@
+﻿{% extends "frontend/main.html" %}
+
+
+{% block content %}
+    <!-- Header -->
+    <section id="header">
+        <div class="inner">
+            <span class="icon major fa-line-chart"></span>
+            <h1>Data Driven Investing</h1>
+            <p>This is a list of all stocks I could get for you! Click on any of them to get more details. You can also mark them as favourites!</p>
+            <ul class="actions">
+                <li><a href="/" class="button">Back</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FavList 
+    <section id="list" , class="main style1">
+        <div class="container">
+            <h2> Your Favorite Stocks: </h2>
+            {% if error_message %}
+                <h3>{{ error_message }}</h3>
+            {% endif %}
+            <ul>
+                {% for stock in favs %}
+                <li>
+                    <a href="{% url "api:detail_view" stock.symbol %}">{{ stock.full_name }}: {{ stock.symbol }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+</section>-->
+
+    <!-- List -->
+    <section id="list", class="main style2">
+        <div class="container">
+            <h2> All Stocks: </h2>
+            <ul>
+                {% for stock in head %}
+                <li>
+                    <a href="{% url "api:detail_view" stock.symbol %}">{{ stock.full_name }}: {{ stock.symbol }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}

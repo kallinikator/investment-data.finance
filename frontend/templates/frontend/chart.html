@@ -1,0 +1,128 @@
+﻿{% extends "frontend/main.html" %}
+
+{% block content %}
+    <!-- Header -->
+    <section id="header">
+        <div class="inner">
+            <span class="icon major fa-line-chart"></span>
+            <h1>{{ stock.full_name }}</h1>
+                {% if stock.description|length %}
+                    <div class="container">
+                        <p>{{ stock.description }}</p>
+                    </div>
+                    <a href="https://de.wikipedia.org/wiki/{{ stock.full_name }}">More on Wikipedia</a>
+                {% else %}
+                    <p>No Description available.</p>
+                {% endif %}
+            <ul class="actions">
+                <li><a href="/" class="button">Back</a></li>
+                <li><a href="/" class="button">Back</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Price Chart -->
+    <section id="price_chart">
+        <div class="container">
+            {% if data.data %}
+                <h2>Price Data for {{ stock.full_name }}:</h2>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages':['line']});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+
+                        var data = new google.visualization.DataTable();
+
+                        data.addColumn('string', 'Date');
+                        data.addColumn('number', 'price_high');
+
+
+                        data.addRows([
+                            {% for data in price_data %}
+                                ["{{ data.date }}", {{ data.price_high }}],
+                            {% endfor %}
+                            ]);
+
+                        var options = {
+                            chart: {
+                                title: 'in dollars (USD)',
+                                subtitle: ''
+                            },
+                            height: 500,
+                            axes: {
+                                x: {
+                                    0: {side: 'top'}
+                                }
+                            }
+                        };
+
+                        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+                        chart.draw(data, options);
+                    }
+                </script>
+
+                <div id="line_top_x"></div>
+            {% else %}
+                <h2>No price data for {{ stock.full_name }} available.</h2>
+            {% endif %}
+        </div>
+    </section> 
+
+    <!-- Table -->
+    <section id="two" class="main style2">
+        <div class="container">
+            {% if fundamental_data %}
+            <h2>Fundamental Data for {{ stock.full_name }}:</h2>
+            <div class="row 100%">
+                {% for info in fundamental_data %}
+
+                    <h3> Publication of the Annual Report: {{ info.date }} </h3>
+                    <table>
+                        <tr>
+                            <th scope="col">end_date</th>
+                            <!--<th scope="col">period_focus</th>-->
+                            <th scope="col">revenues</th>
+                            <th scope="col">op_income</th>
+                            <th scope="col">net_income</th>
+                            <th scope="col">eps_basic</th>
+                            <!--<th scope="col">eps_diluted</th>-->
+                            <th scope="col">dividend</th>
+                            <th scope="col">cur_assets</th>
+                            <th scope="col">cur_liab</th>
+                            <!--<th scope="col">cash</th>-->
+                            <th scope="col">equity</th>
+                            <th scope="col">cash_flow_op</th>
+                            <!--<th scope="col">cash_flow_inv</th>
+                            <th scope="col">cash_flow_fin</th>-->
+                        </tr>
+                        <tr>
+                            <td>{{ info.end_date }}</td>
+                            <!--<td>{{ info.period_focus }}</td>-->
+                            <td>{{ info.revenues }}</td>
+                            <td>{{ info.op_income }}</td>
+                            <td>{{ info.net_income }}</td>
+                            <td>{{ info.eps_basic }}</td>
+                            <!--<td>{{ info.eps_diluted }}</td>-->
+                            <td>{{ info.dividend }}</td>
+                            <td>{{ info.cur_assets }}</td>
+                            <td>{{ info.cur_liab }}</td>
+                            <!--<td>{{ info.cash }}</td>-->
+                            <td>{{ info.equity }}</td>
+                            <td>{{ info.cash_flow_op }}</td>
+                            <!--<td>{{ info.cash_flow_inv }}</td>
+                            <td>{{ info.cash_flow_fin }}</td>-->
+                        </tr>
+                    </table>
+                {% endfor %}
+            </div>
+            {% else %}
+                <h2>No fundamental data for {{ stock.full_name }} available.</h2>
+            {% endif %}
+
+        </div>
+    </section>
+
+{% endblock %}

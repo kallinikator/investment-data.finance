@@ -1,0 +1,39 @@
+﻿{% extends "frontend/main.html" %}
+
+{% block content %}
+<!-- Header -->
+<section id="header">
+    <div class="inner">
+        <span class="icon major fa-line-chart"></span>
+        <h1>Data Driven Investing</h1>
+        <p>If you want to contact me, just write me a mail! Or call, or text me on facebook.</p>
+        <ul class="actions">
+            <li><a href="/" class="button">Back</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- Contact - Form -->
+<section id="contact_data", class="main style1">
+    <form name="contact" method="post" action="https://formspree.io/tilllangbein@gmail.com">
+        <div class="container">
+            <div class="contactus">
+                <label>
+                    <span>Subject</span>
+                    <input type="text" name="Subject" placeholder="Hey!">
+                </label>
+                <label>
+                    <span>Your E-Mail</span>
+                    <input type="email" name="Your E-Mail" placeholder="Max@Mustermann.com">
+                </label>
+                <label>
+                    <span>Your Message</span>
+                    <input type="text" name="Write me a mail" placeholder="Whats up?">
+                </label>
+                <button type="submit">Send</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+{% endblock %}

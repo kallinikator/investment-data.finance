@@ -1,0 +1,30 @@
+﻿{% extends "frontend/main.html" %}
+
+
+{% block content %}
+    <!-- Header -->
+    <section id="header">
+        <div class="inner">
+            <span class="icon major fa-code"></span>
+            <h1>Blog</h1>
+            <p>The place where you´ll learn how to retrieve and use our data!</p>
+            <ul class="actions">
+                <li><a href="/" class="button">Back</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- List -->
+    <section id="list", class="main style2">
+        <div class="container">
+            <ul>
+                {% for entry in all_entries %}
+                <li>
+                    <a href='{% url "blog:detail_view" entry.id %}'>{{ entry.date }}: {{ entry.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+</section>
+
+{% endblock %}
